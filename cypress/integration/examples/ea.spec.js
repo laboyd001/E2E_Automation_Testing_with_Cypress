@@ -5,12 +5,25 @@ describe('Testing of EA App', () => {
 
     it('Login application', () => {
 
+
+
         cy.visit('http://eaapp.somee.com/')
 
-        cy.get("#loginLink").then(($link) => {
-            const linkText = $link.text()
-            expect(linkText).is.eql('Login')
-        }).click()
+
+        //longhand way of working with promise (Closure)
+        // cy.get("#loginLink").then(($link) => {
+        //     return $link.text()
+        // }).as('linkText')
+
+        //shorthand way of working with promise using .invoke
+         cy.get("#loginLink").invoke('text').as('linkText')
+
+        cy.contains('Login').click()
+
+        cy.get('@linkText').then(($x) => {
+            expect($x).is.eql('Login')
+        })
+
 
         cy.url().should("include", "/Account/Login")
 
