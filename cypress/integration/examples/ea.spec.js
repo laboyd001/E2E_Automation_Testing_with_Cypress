@@ -36,17 +36,25 @@ describe('Testing of EA App', () => {
         cy.contains('Employee List').click()
 
         //identify table element
-        cy.get('.table').find('tr > td')
-        //check for Prashanth
-        .contains('Prashanth').parent()
-        //get associated Benefit and then click
-        .contains('Benefits').click()
+        // cy.get('.table').find('tr > td')
+        // //check for Prashanth
+        // .contains('Prashanth').parent()
+        // //get associated Benefit and then click
+        // .contains('Benefits').click()
 
-        //create alias named 'rows'
-        cy.get('.table').find('tr').as('rows')
+        // //create alias named 'rows'
+        // cy.get('.table').find('tr').as('rows')
 
-        cy.get('@rows').then(($row) => {
-            cy.wrap($row).click({multiple:true})
+        // cy.get('@rows').then(($row) => {
+        //     cy.wrap($row).click({multiple:true})
+        // })
+
+        //verify the value from a property
+        cy.wrap({name:'Karthik'}).should('have.property','name').and('eq', 'Karthik')
+
+        //using wrap
+        cy.get('.table').find('tr > td').then(($td) => {
+            cy.wrap($td).contains('John').invoke('wrap').parent().contains('Benefits').click()
         })
 
     })
