@@ -41,6 +41,14 @@ describe('Testing of EA App', () => {
         .contains('Prashanth').parent()
         //get associated Benefit and then click
         .contains('Benefits').click()
+
+        //create alias named 'rows'
+        cy.get('.table').find('tr').as('rows')
+
+        cy.get('@rows').then(($row) => {
+            cy.wrap($row).click({multiple:true})
+        })
+
     })
 
 })
