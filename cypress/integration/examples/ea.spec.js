@@ -21,7 +21,6 @@ describe('Testing of EA App', () => {
 
     it('Testing EA site for Assertion with hooks', () =>{
 
-        // cy.get("[aria-label='jump to slide 2']",{timeout:60000}).should('have.class', 'ls-nav-actve')
 
         cy.get('.ct-holder-detail-container',{timeout:60000}).should(($x) => {
             expect($x).to.not.be.null
