@@ -15,6 +15,16 @@ describe('Testing of EA App', () => {
         cy.get('#Password').type('password')
 
         cy.get('.btn').click()
+
+        //click the employee list
+        cy.contains('Employee List').click()
+
+        //table
+        cy.get('.table').find('tr > td')
+        //check for Prashanth
+        .contains('Prashanth').parent()
+        //get associated Benefit and then click
+        .contains('Benefits').click()
     })
 
 })
