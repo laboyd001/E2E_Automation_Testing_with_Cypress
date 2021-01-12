@@ -7,11 +7,14 @@ describe('Testing of EA App', () => {
 
         cy.visit('http://eaapp.somee.com/')
 
-        cy.contains("Login").click()
+        cy.get("#loginLink").then(($link) => {
+            const linkText = $link.text()
+            expect(linkText).is.eql('Login')
+        }).click()
 
         cy.url().should("include", "/Account/Login")
 
-        cy.get('#UserName').type("admin")
+        cy.get('#UserName').type("admin");
         cy.get('#Password').type('password')
 
         cy.get('.btn').click()
@@ -19,7 +22,7 @@ describe('Testing of EA App', () => {
         //click the employee list
         cy.contains('Employee List').click()
 
-        //table
+        //identify table element
         cy.get('.table').find('tr > td')
         //check for Prashanth
         .contains('Prashanth').parent()
