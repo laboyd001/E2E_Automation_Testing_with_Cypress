@@ -39,7 +39,7 @@ Cypress.Commands.add("login", (username, password) => {
 
 
     //find username and password field and type values
-    cy.get('#UserName').type(username)
+    cy.get('#UserName').type(Cypress.env("username"))
     cy.get('#Password').type(password)
 
     //click the button to proceed with logging in
