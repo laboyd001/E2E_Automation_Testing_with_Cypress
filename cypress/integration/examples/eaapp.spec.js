@@ -4,7 +4,7 @@ describe('Test EA Application', () => {
 
     before('Login to application', () => {
         //visiting website
-        cy.visit('http://eaapp.somee.com/')
+        cy.visit('/')
 
         //grabbing creds from fixture file
         cy.fixture("eauser").as("user")
