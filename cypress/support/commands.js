@@ -23,3 +23,27 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("login", (username, password) => {
+    //click login button to bring up form
+    cy.contains('Login').click()
+
+    cy.get("#loginLink").invoke('text').as('linkText')
+
+
+    cy.get('@linkText').then(($x) => {
+        expect($x).is.eql('Login')
+    })
+
+    cy.url().should("include", "/Account/Login")
+
+
+    //find username and password field and type values
+    cy.get('#UserName').type(username)
+    cy.get('#Password').type(password)
+
+    //click the button to proceed with logging in
+    cy.get('.btn').click()
+
+})
+

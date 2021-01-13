@@ -8,40 +8,28 @@ describe('Test EA Application', () => {
 
         //grabbing creds from fixture file
         cy.fixture("eauser").as("user")
+
+        cy.get('@user').then((user)=> {
+            cy.login(user.UserName, user.Password)
+        })
+
+        
     })
 
     it('Performing Benefit Check', () => {
 
-
-        //shorthand way of working with promise using .invoke
-         cy.get("#loginLink").invoke('text').as('linkText')
-
-        cy.contains('Login').click()
-
-        cy.get('@linkText').then(($x) => {
-            expect($x).is.eql('Login')
-        })
-
-
-        cy.url().should("include", "/Account/Login")
-
-        cy.get('@user').then((user)=> {
-            cy.get('#UserName').type(user.UserName)
-            cy.get('#Password').type(user.Password)
-        })
-
-        cy.get('.btn').click()
-
         //click the employee list
         cy.contains('Employee List').click()
 
-        //verify the value from a property
-        cy.wrap({name:'Karthik'}).should('have.property','name').and('eq', 'Karthik')
+        cy.get('.table').find('tr').contains('Prashanth').parent().contains('Benefits').click()
 
-        //using wrap
-        cy.get('.table').find('tr > td').then(($td) => {
-            cy.wrap($td).contains('John').invoke('wrap').parent().contains('Benefits').click()
+        cy.get('.table').find('tr').as('rows')
+
+        cy.get('@rows').then(($row) => {
+            cy.wrap($row).click({ multiple: true})
         })
+
+        cy.wrap({ name: 'Karthik' }).should('have.property', 'name').and('eq', 'Karthik')
 
     })
 })
