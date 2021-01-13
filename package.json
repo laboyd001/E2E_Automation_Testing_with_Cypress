@@ -1,6 +1,10 @@
 {
     "devDependencies": {
         "cypress": "^3.8.3",
+        "cypress-cucumber-preprocessor": "^4.0.0",
         "cypress-dark": "^1.7.14"
+    },
+    "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinations": true
     }
 }
