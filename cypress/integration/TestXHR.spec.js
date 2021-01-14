@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe("Test LamdaTest Website XHR", () => {
-  before("Navigate to LambdaTest", () => {
+  beforeEach("Navigate to LambdaTest", () => {
     cy.visit("https://accounts.lambdatest.com/login");
   });
 
@@ -43,4 +43,17 @@ describe("Test LamdaTest Website XHR", () => {
     //implicit assertion
      cy.get("@apicheck").its('response.body').should('have.property', 'maxQueue').and('eql', 10)
   });
+
+  it('Verify lambda test cookies', () => {
+    cy.fixture("lamdaUser").as("lamdauser");
+
+    cy.get("@lamdauser").then((lamdauser) => {
+      cy.get("[name='email']").debug().type(lamdauser.UserName);
+      cy.get("[name='password']").debug().type(lamdauser.Password, { log: false });
+    });
+
+    cy.get('.btn').click() 
+
+    cy.getCookie('user_id').should('have.property', 'value', '370663')
+  })
 });
