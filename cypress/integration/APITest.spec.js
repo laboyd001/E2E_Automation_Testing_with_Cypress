@@ -8,6 +8,7 @@ context("Test API from the Fake JSON Server", () => {
         cy.request({
             method:'DELETE',
             url: 'http://localhost:3000/posts/2',
+            failOnStatusCode:false
         }).then((x) => {
             expect(x.body).to.be.empty
         })
