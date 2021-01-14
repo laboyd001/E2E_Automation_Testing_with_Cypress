@@ -2,7 +2,6 @@
 
     "video": true,
     "screenshotsFolder": "cypress/videos",
-    "baseUrl":"http://eaapp.somee.com",
     "env":{
         "username":"admin"
     }
