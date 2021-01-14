@@ -5,6 +5,6 @@
         "cypress-dark": "^1.7.14"
     },
     "cypress-cucumber-preprocessor": {
-        "step_definitions": "cypress/integration/features/step_definitions/**/"
+        "nonGlobalStepDefinitions": true
     }
 }
