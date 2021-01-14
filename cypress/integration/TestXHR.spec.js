@@ -16,6 +16,11 @@ describe("Test LamdaTest Website XHR", () => {
         //store in alias 'team'
     }).as('team')
 
+    cy.route({
+        method:'GET',
+        url:'/api/user/organization/automation-test-summary'
+    }).as('apicheck')
+
     cy.fixture("lamdaUser").as("lamdauser");
 
     cy.get("@lamdauser").then((lamdauser) => {
@@ -28,5 +33,14 @@ describe("Test LamdaTest Website XHR", () => {
     cy.get("@team").then((xhr) => {
        expect(xhr.status).to.eql(200)
     })
+
+    //traffic interception - Expilict Assertion
+    cy.get("@apicheck").then((xhr) => {
+        expect(xhr.status).to.eql(200)
+        expect(xhr.response.body).to.have.property("maxQueue", 10)
+     })
+
+    //implicit assertion
+     cy.get("@apicheck").its('response.body').should('have.property', 'maxQueue').and('eql', 10)
   });
 });
